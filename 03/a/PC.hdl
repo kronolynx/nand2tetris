@@ -16,5 +16,10 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // Or is used to define register load
+    Or(a=load, b=inc, out=l);
+    Or(a=l, b=reset, out=sel);
+    Inc16(in=t1, out=incout);
+    Mux8Way16(sel[2]=inc , sel[1]=load , sel[0]=reset, a=t1, b=false, c=in, d=false, e=incout, f=false, g=in, h=false, out=resout);
+    Register(in=resout, load=sel, out=out, out=t1);
 }
